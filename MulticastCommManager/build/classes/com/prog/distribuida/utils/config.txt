@@ -1,2 +1,0 @@
-Path=D:/DISTRIBUIDA/P1/FILES/
-Hoa=perro
