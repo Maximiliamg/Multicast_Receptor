@@ -89,7 +89,7 @@ public class GUI extends javax.swing.JFrame implements MulticastManagerCallerInt
 
         jLabel3.setText("Path");
 
-        jTextField4.setText("D:/DISTRIBUIDA/P1/FILES/");
+        jTextField4.setText("D:/DISTRIBUIDA/P1/FILES");
         jTextField4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField4ActionPerformed(evt);
