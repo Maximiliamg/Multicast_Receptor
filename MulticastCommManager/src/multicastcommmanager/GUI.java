@@ -21,7 +21,6 @@ import javax.swing.JFileChooser;
 
 /**
  *
- * @author asaad
  */
 public class GUI extends javax.swing.JFrame implements MulticastManagerCallerInterface {
     MulticastManager multicastManager;

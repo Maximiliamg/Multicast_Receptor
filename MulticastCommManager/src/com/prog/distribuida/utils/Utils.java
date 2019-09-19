@@ -16,14 +16,13 @@ import java.util.ArrayList;
 
 /**
  *
- * @author juan-
  */
 public class Utils {
     
     public static void rebuildAndSaveFile(ArrayList<FilePart> file, String path){
         System.out.println(file);
         String fileName = path + "/" + file.get(0).getFileName();
-
+        
         try {
             FileOutputStream fos = new FileOutputStream(fileName, true);
             for (FilePart fp : file) {
