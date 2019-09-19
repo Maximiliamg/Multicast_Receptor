@@ -167,6 +167,7 @@ public class GUI extends javax.swing.JFrame implements MulticastManagerCallerInt
 
     private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_jTextField4ActionPerformed
 
     /**
@@ -221,10 +222,24 @@ public class GUI extends javax.swing.JFrame implements MulticastManagerCallerInt
 
     public void InitializeMulticastManager(){
         try{
-            if(multicastManager==null)
-            this.multicastManager=new MulticastManager(
-                    this.jTextField1.getText(),
-                    Integer.parseInt(this.jTextField2.getText()), this);
+            if(multicastManager==null){
+                this.multicastManager=new MulticastManager(
+                        this.jTextField1.getText(),
+                        Integer.parseInt(this.jTextField2.getText()), this);
+                notify(
+                        "Connection established with " +
+                        this.jTextField1.getText() +
+                        ":" +
+                        Integer.parseInt(this.jTextField2.getText())
+                );
+            }else{
+                notify(
+                        "Already connected to " +
+                        this.jTextField1.getText() +
+                        ":" +
+                        Integer.parseInt(this.jTextField2.getText())
+                );
+            }
         }catch(Exception error){
             jTextArea1.append(error.getMessage()+"\n");
         }
@@ -239,26 +254,26 @@ public class GUI extends javax.swing.JFrame implements MulticastManagerCallerInt
                 Object readObject = ois.readObject();
                 if (readObject instanceof Object) {
                     FilePart part = (FilePart) readObject;
-                        if (titles.contains(part.getFileName())) {
-                            int index = titles.indexOf(part.getFileName());
-                            ArrayList document = documentParts.get(index);
-                            document.add(part.getPartNumber(), part);
-                            if (document.size() == partsNumbers.get(index)) {
-                                Utils.rebuildAndSaveFile(document, PATH);
-                                titles.remove(index);
-                                documentParts.remove(index);
-                                partsNumbers.remove(index);
-                            }
-                        }else{
-                            titles.add(part.getFileName());
-                            documentParts.add(new ArrayList<>());
-                            if (part.getData() == null) {
-                                partsNumbers.add(part.getPartNumber());
-                            }else{
-                                documentParts.get(documentParts.size() - 1).add(part.getPartNumber(), part);
-                            }
+                    if (part.getData() == null) {
+                        partsNumbers.add(part.getPartNumber());
+                    }
+                    if (titles.contains(part.getFileName())) {
+                        int index = titles.indexOf(part.getFileName());
+                        ArrayList document = documentParts.get(index);
+                        document.add(part.getPartNumber(), part);
+                        if (document.size() == partsNumbers.get(index)) {
+                            Utils.rebuildAndSaveFile(document, PATH);
+                            titles.remove(index);
+                            documentParts.remove(index);
+                            partsNumbers.remove(index);
                         }
-//                    }
+                    }else{
+                        titles.add(part.getFileName());
+                        documentParts.add(new ArrayList<>());
+                        if (! (part.getData() == null)) {
+                            documentParts.get(documentParts.size() - 1).add(part.getPartNumber(), part);
+                        }
+                    }
                 } else {
                     System.out.println("The received object is not of type Object!");
                 }
