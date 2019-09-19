@@ -32,7 +32,7 @@ public class Utils {
             fos.close();
             System.out.println("RECONSTRUIDO");
             
-            notifyFileCreation(fileName);
+            notifyFileCreation(file.get(0).getFileName());
         } catch (Exception e) {
             e.printStackTrace();
         }

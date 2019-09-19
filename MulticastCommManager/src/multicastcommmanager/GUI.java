@@ -89,7 +89,7 @@ public class GUI extends javax.swing.JFrame implements MulticastManagerCallerInt
 
         jLabel3.setText("Path");
 
-        jTextField4.setText("D:/DISTRIBUIDA/P1/FILES");
+        jTextField4.setText("C://DISTRIBUIDA/P1/FILES");
         jTextField4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField4ActionPerformed(evt);
@@ -157,6 +157,10 @@ public class GUI extends javax.swing.JFrame implements MulticastManagerCallerInt
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         InitializeMulticastManager();
         PATH = jTextField4.getText();
+        File folder = new File(PATH);
+        if(! folder.exists()){
+            folder.mkdirs();
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
