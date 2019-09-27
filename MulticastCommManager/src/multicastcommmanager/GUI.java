@@ -251,7 +251,6 @@ public class GUI extends javax.swing.JFrame implements MulticastManagerCallerInt
     
     @Override
     public void MessageReceived(String sourceIpAddressOrHost, int sourcePort, byte[] data, int length) {
-        System.out.println("HEEEEEEEEEEY RECIBI ALGOOOOOO");
         ByteArrayInputStream bais = new ByteArrayInputStream(data);
             try {
                 ObjectInputStream ois = new ObjectInputStream(bais);
@@ -260,11 +259,13 @@ public class GUI extends javax.swing.JFrame implements MulticastManagerCallerInt
                     FilePart part = (FilePart) readObject;
                     if (part.getData() == null) {
                         partsNumbers.add(part.getPartNumber());
+                        notify("Part 0 recieved... 0/" + part.getPartNumber());
                     }
-                    if (titles.contains(part.getFileName())) {
+                    if (titles.contains(part.getFileName()) && part.getData() != null) {
                         int index = titles.indexOf(part.getFileName());
                         ArrayList document = documentParts.get(index);
                         document.add(part.getPartNumber(), part);
+                        notify("Part " + part.getPartNumber() + " recieved... " + part.getPartNumber() + 1 + "/" + partsNumbers.get(index));
                         if (document.size() == partsNumbers.get(index)) {
                             Utils.rebuildAndSaveFile(document, PATH);
                             titles.remove(index);
@@ -274,7 +275,7 @@ public class GUI extends javax.swing.JFrame implements MulticastManagerCallerInt
                     }else{
                         titles.add(part.getFileName());
                         documentParts.add(new ArrayList<>());
-                        if (! (part.getData() == null)) {
+                        if (part.getData() != null) {
                             documentParts.get(documentParts.size() - 1).add(part.getPartNumber(), part);
                         }
                     }
